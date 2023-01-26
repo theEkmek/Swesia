@@ -218,6 +218,180 @@ wind.MouseButton1Click:Connect(function()
 	game.Players.LocalPlayer.Character.Waist:remove()
 end)
 
+ff.Name = "ff"
+ff.Parent = Frame
+ff.BackgroundColor3 = Color3.fromRGB(72, 72, 72)
+ff.BorderColor3 = Color3.fromRGB(53, 0, 0)
+ff.Position = UDim2.new(0.697777808, 0, 0.609375, 0)
+ff.Size = UDim2.new(0, 90, 0, 31)
+ff.Font = Enum.Font.FredokaOne
+ff.Text = "FF"
+ff.TextColor3 = Color3.fromRGB(230, 230, 230)
+ff.TextSize = 17.000
+ff.MouseButton1Click:Connect(function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/1ArcX/Scripts/main/God%20Mode", true))()
+end)
+
+stack.Name = "stack"
+stack.Parent = Frame
+stack.BackgroundColor3 = Color3.fromRGB(72, 72, 72)
+stack.BorderColor3 = Color3.fromRGB(53, 0, 0)
+stack.Position = UDim2.new(0.697777808, 0, 0.43359375, 0)
+stack.Size = UDim2.new(0, 90, 0, 31)
+stack.Font = Enum.Font.FredokaOne
+stack.Text = "Stack FB"
+stack.TextColor3 = Color3.fromRGB(230, 230, 230)
+stack.TextSize = 17.000
+stack.MouseButton1Click:Connect(function()
+	local playerlist = {};
+	for i,v in pairs(game.Players:GetPlayers())do
+		table.insert(playerlist,v.Name)
+	end
+
+	local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+	local Main = Library.CreateLib("Modded Ball")
+	local T1 = Main:NewTab("Modded Ball")
+	local S1 = T1:NewSection("FireBall")
+
+
+	local PlayerChosen;
+	local drop = S1:NewDropdown("Choose Player", "Babonun mk", playerlist, function(new)
+		PlayerChosen = new;
+	end)
+
+	game.Players.PlayerAdded:Connect(function(player)
+		local name = player.Name
+		table.insert(playerlist,name)
+		drop:Refresh(playerlist)
+	end)
+
+	game.Players.PlayerRemoving:Connect(function(player)
+		local name = player.Name
+		for i,v in pairs(playerlist)do
+			if v == name then  
+				table.remove(playerlist,i)
+			end
+		end
+	end)
+
+
+
+	S1:NewToggle("Active/Close", "Press R", function(state)
+		da = state
+		while da do
+			task.wait()
+			pcall (function()
+				if game.Players:FindFirstChild(PlayerChosen).Character.Humanoid.Health ~= 0 then
+					if not game.Players:FindFirstChild(PlayerChosen).Character:FindFirstChild("SafeZoneShield") then 
+						local x = game.Players.LocalPlayer.Character.HumanoidRootPart.Position.x
+						local z = game.Players.LocalPlayer.Character.HumanoidRootPart.Position.z
+
+						local x2 = game.Players:FindFirstChild(PlayerChosen).Character.HumanoidRootPart.Position.x
+						local y = game.Players:FindFirstChild(PlayerChosen).Character.HumanoidRootPart.Position.y
+						local z2 = game.Players:FindFirstChild(PlayerChosen).Character.HumanoidRootPart.Position.z
+						local args = {[1] = {[1] = "Skill_SpherePunch",[2] = Vector3.new(x, 10000, z)}}
+						game:GetService("ReplicatedStorage").RemoteEvent:FireServer(unpack(args))
+						for i, v in ipairs (game:GetService("Workspace").Storage:GetChildren()) do
+							if v.Name == "EnergySphere9" then
+								v.CFrame = CFrame.new(x2, y, z2)
+							end 
+						end
+					end
+				end
+			end)
+		end
+	end)
+end)
+
+F1respawn.Name = "F1 respawn"
+F1respawn.Parent = Frame
+F1respawn.BackgroundColor3 = Color3.fromRGB(72, 72, 72)
+F1respawn.BorderColor3 = Color3.fromRGB(53, 0, 0)
+F1respawn.Position = UDim2.new(0.400000006, 0, 0.7890625, 0)
+F1respawn.Size = UDim2.new(0, 90, 0, 31)
+F1respawn.Font = Enum.Font.FredokaOne
+F1respawn.Text = "Respawn At Spawn"
+F1respawn.TextColor3 = Color3.fromRGB(230, 230, 230)
+F1respawn.TextScaled = true
+F1respawn.TextSize = 17.000
+F1respawn.TextWrapped = true
+F1respawn.MouseButton1Click:Connect(function()
+	game.ReplicatedStorage.RemoteEvent:FireServer({"Respawn"})
+	wait(2)
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(321,249,847)
+end)
+
+ChatSPY.Name = "ChatSPY"
+ChatSPY.Parent = Frame
+ChatSPY.BackgroundColor3 = Color3.fromRGB(72, 72, 72)
+ChatSPY.BorderColor3 = Color3.fromRGB(53, 0, 0)
+ChatSPY.Position = UDim2.new(0.400000006, 0, 0.609375, 0)
+ChatSPY.Size = UDim2.new(0, 90, 0, 31)
+ChatSPY.Font = Enum.Font.FredokaOne
+ChatSPY.Text = "Chat SPY"
+ChatSPY.TextColor3 = Color3.fromRGB(230, 230, 230)
+ChatSPY.TextSize = 17.000
+ChatSPY.MouseButton1Click:Connect(function()
+	enabled = true
+	spyOnMyself = true
+	public = false
+	publicItalics = true
+	privateProperties = {
+		Color = Color3.fromRGB(0,255,255); 
+		Font = Enum.Font.SourceSansBold;
+		TextSize = 18;
+	}
+	--////////////////////////////////////////////////////////////////
+	local StarterGui = game:GetService("StarterGui")
+	local Players = game:GetService("Players")
+	local player = Players.LocalPlayer
+	local saymsg = game:GetService("ReplicatedStorage"):WaitForChild("DefaultChatSystemChatEvents"):WaitForChild("SayMessageRequest")
+	local getmsg = game:GetService("ReplicatedStorage"):WaitForChild("DefaultChatSystemChatEvents"):WaitForChild("OnMessageDoneFiltering")
+	local instance = (_G.chatSpyInstance or 0) + 1
+	_G.chatSpyInstance = instance
+
+	local function onChatted(p,msg)
+		if _G.chatSpyInstance == instance then
+			if p==player and msg:lower():sub(1,4)=="/spy" then
+				enabled = not enabled
+				wait(0.3)
+				privateProperties.Text = "{SPY "..(enabled and "EN" or "DIS").."ABLED}"
+				StarterGui:SetCore("ChatMakeSystemMessage",privateProperties)
+			elseif enabled and (spyOnMyself==true or p~=player) then
+				msg = msg:gsub("[\n\r]",''):gsub("\t",' '):gsub("[ ]+",' ')
+				local hidden = true
+				local conn = getmsg.OnClientEvent:Connect(function(packet,channel)
+					if packet.SpeakerUserId==p.UserId and packet.Message==msg:sub(#msg-#packet.Message+1) and (channel=="All" or (channel=="Team" and public==false and Players[packet.FromSpeaker].Team==player.Team)) then
+						hidden = false
+					end
+				end)
+				wait(1)
+				conn:Disconnect()
+				if hidden and enabled then
+					if public then
+						saymsg:FireServer((publicItalics and "/me " or '').."{SPY} [".. p.Name .."]: "..msg,"All")
+					else
+						privateProperties.Text = "{SPY} [".. p.Name .."]: "..msg
+						StarterGui:SetCore("ChatMakeSystemMessage",privateProperties)
+					end
+				end
+			end
+		end
+	end
+
+	for _,p in ipairs(Players:GetPlayers()) do
+		p.Chatted:Connect(function(msg) onChatted(p,msg) end)
+	end
+	Players.PlayerAdded:Connect(function(p)
+		p.Chatted:Connect(function(msg) onChatted(p,msg) end)
+	end)
+	privateProperties.Text = "{SPY "..(enabled and "EN" or "DIS").."ABLED}"
+	StarterGui:SetCore("ChatMakeSystemMessage",privateProperties)
+	local chatFrame = player.PlayerGui.Chat.Frame
+	chatFrame.ChatChannelParentFrame.Visible = true
+	chatFrame.ChatBarParentFrame.Position = chatFrame.ChatChannelParentFrame.Position+UDim2.new(UDim.new(),chatFrame.ChatChannelParentFrame.Size.Y)
+end)
+
 admins.Name = "admins"
 admins.Parent = Frame
 admins.BackgroundColor3 = Color3.fromRGB(72, 72, 72)
@@ -394,7 +568,7 @@ Fates.Font = Enum.Font.FredokaOne
 Fates.Text = "Fates"
 Fates.TextColor3 = Color3.fromRGB(230, 230, 230)
 Fates.TextSize = 17.000
-Fates.MouseButton1Click:Connect(function()
+Yield.MouseButton1Click:Connect(function()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/fatesc/fates-admin/main/main.lua"))();
 end)
 
@@ -412,210 +586,209 @@ cmdx.MouseButton1Click:Connect(function()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/CMD-X/CMD-X/master/Source", true))()
 end)
 
-
 -- Scripts:
 
-local function DSVZZ_fake_script() -- ImageLabel.LocalScript 
+local function BNHSKFA_fake_script() -- ImageLabel.LocalScript 
 	local script = Instance.new('LocalScript', ImageLabel)
 
 	local Players = game:GetService("Players")
 	local player = Players.LocalPlayer
 	local imagelabel = script.Parent
-
+	
 	imagelabel.Image = Players:GetUserThumbnailAsync(player.UserId,Enum.ThumbnailType.HeadShot,Enum.ThumbnailSize.Size420x420)
-
-
+	
+	
 end
-coroutine.wrap(DSVZZ_fake_script)()
-local function DWET_fake_script() -- Swesia.RGB 
+coroutine.wrap(BNHSKFA_fake_script)()
+local function RNIWGG_fake_script() -- Swesia.RGB 
 	local script = Instance.new('Script', Swesia)
 
 	local t = 20;
-
+	
 	while wait() do
 		local hue = tick()% t/t
 		local color = Color3.fromHSV(hue,1,1)
 		script.Parent.TextColor3 = color
 	end
 end
-coroutine.wrap(DWET_fake_script)()
-local function GNIUU_fake_script() -- Welcome.Nick 
+coroutine.wrap(RNIWGG_fake_script)()
+local function LSMKBB_fake_script() -- Welcome.Nick 
 	local script = Instance.new('Script', Welcome)
 
 	local player = game.Players.LocalPlayer
-
+	
 	if player then
 		script.Parent.Text = "Welcome " ..player.Name.. ""
 	end
 end
-coroutine.wrap(GNIUU_fake_script)()
-local function PPSOBH_fake_script() -- chattrsnl.RGB Border 
+coroutine.wrap(LSMKBB_fake_script)()
+local function ZLWVTIX_fake_script() -- chattrsnl.RGB Border 
 	local script = Instance.new('Script', chattrsnl)
 
 	local t = 5;
-
+	
 	while wait() do
 		local hue = tick()% t/t
 		local color = Color3.fromHSV(hue,1,1)
 		script.Parent.BorderColor3 = color
 	end
 end
-coroutine.wrap(PPSOBH_fake_script)()
-local function WDAKQ_fake_script() -- wind.RGB Border 
+coroutine.wrap(ZLWVTIX_fake_script)()
+local function DWZTTLL_fake_script() -- wind.RGB Border 
 	local script = Instance.new('Script', wind)
 
 	local t = 5;
-
+	
 	while wait() do
 		local hue = tick()% t/t
 		local color = Color3.fromHSV(hue,1,1)
 		script.Parent.BorderColor3 = color
 	end
 end
-coroutine.wrap(WDAKQ_fake_script)()
-local function BRFDQ_fake_script() -- ff.RGB Border 
+coroutine.wrap(DWZTTLL_fake_script)()
+local function FMMP_fake_script() -- ff.RGB Border 
 	local script = Instance.new('Script', ff)
 
 	local t = 5;
-
+	
 	while wait() do
 		local hue = tick()% t/t
 		local color = Color3.fromHSV(hue,1,1)
 		script.Parent.BorderColor3 = color
 	end
 end
-coroutine.wrap(BRFDQ_fake_script)()
-local function ODGWXE_fake_script() -- stack.RGB Border 
+coroutine.wrap(FMMP_fake_script)()
+local function JCNDGTB_fake_script() -- stack.RGB Border 
 	local script = Instance.new('Script', stack)
 
 	local t = 5;
-
+	
 	while wait() do
 		local hue = tick()% t/t
 		local color = Color3.fromHSV(hue,1,1)
 		script.Parent.BorderColor3 = color
 	end
 end
-coroutine.wrap(ODGWXE_fake_script)()
-local function CIDJWGW_fake_script() -- F1respawn.RGB Border 
+coroutine.wrap(JCNDGTB_fake_script)()
+local function MVUQF_fake_script() -- F1respawn.RGB Border 
 	local script = Instance.new('Script', F1respawn)
 
 	local t = 5;
-
+	
 	while wait() do
 		local hue = tick()% t/t
 		local color = Color3.fromHSV(hue,1,1)
 		script.Parent.BorderColor3 = color
 	end
 end
-coroutine.wrap(CIDJWGW_fake_script)()
-local function LTQZPP_fake_script() -- ChatSPY.RGB Border 
+coroutine.wrap(MVUQF_fake_script)()
+local function BNXFX_fake_script() -- ChatSPY.RGB Border 
 	local script = Instance.new('Script', ChatSPY)
 
 	local t = 5;
-
+	
 	while wait() do
 		local hue = tick()% t/t
 		local color = Color3.fromHSV(hue,1,1)
 		script.Parent.BorderColor3 = color
 	end
 end
-coroutine.wrap(LTQZPP_fake_script)()
-local function XEQMRFC_fake_script() -- admins.RGB Border 
+coroutine.wrap(BNXFX_fake_script)()
+local function YYAVZH_fake_script() -- admins.RGB Border 
 	local script = Instance.new('Script', admins)
 
 	local t = 5;
-
+	
 	while wait() do
 		local hue = tick()% t/t
 		local color = Color3.fromHSV(hue,1,1)
 		script.Parent.BorderColor3 = color
 	end
 end
-coroutine.wrap(XEQMRFC_fake_script)()
-local function IAPW_fake_script() -- admins.GuiADMIN 
+coroutine.wrap(YYAVZH_fake_script)()
+local function KOUOIDN_fake_script() -- admins.GuiADMIN 
 	local script = Instance.new('Script', admins)
 
 	local admingui = script.Parent.Parent.Frame
 	local button = script.Parent
-
+	
 	button.MouseButton1Click:Connect(function()
 		admingui.Visible = true
 	end)
 end
-coroutine.wrap(IAPW_fake_script)()
-local function GDMDRY_fake_script() -- antiafk.RGB Border 
+coroutine.wrap(KOUOIDN_fake_script)()
+local function MVYKEGK_fake_script() -- antiafk.RGB Border 
 	local script = Instance.new('Script', antiafk)
 
 	local t = 5;
-
+	
 	while wait() do
 		local hue = tick()% t/t
 		local color = Color3.fromHSV(hue,1,1)
 		script.Parent.BorderColor3 = color
 	end
 end
-coroutine.wrap(GDMDRY_fake_script)()
-local function SDFK_fake_script() -- Autofarm.RGB Border 
+coroutine.wrap(MVYKEGK_fake_script)()
+local function SEBFNGT_fake_script() -- Autofarm.RGB Border 
 	local script = Instance.new('Script', Autofarm)
 
 	local t = 5;
-
+	
 	while wait() do
 		local hue = tick()% t/t
 		local color = Color3.fromHSV(hue,1,1)
 		script.Parent.BorderColor3 = color
 	end
 end
-coroutine.wrap(SDFK_fake_script)()
-local function MIPQGS_fake_script() -- Close.Close 
+coroutine.wrap(SEBFNGT_fake_script)()
+local function FSWYLY_fake_script() -- Close.Close 
 	local script = Instance.new('Script', Close)
 
 	local button = script.Parent
 	local admingui = button.Parent
-
+	
 	button.MouseButton1Click:Connect(function()
 		admingui.Visible = false
 	end)
 end
-coroutine.wrap(MIPQGS_fake_script)()
-local function QBYYF_fake_script() -- Yield.RGB 
+coroutine.wrap(FSWYLY_fake_script)()
+local function XGEG_fake_script() -- Yield.RGB 
 	local script = Instance.new('Script', Yield)
 
 	local t = 5;
-
+	
 	while wait() do
 		local hue = tick()% t/t
 		local color = Color3.fromHSV(hue,1,1)
 		script.Parent.BorderColor3 = color
 	end
 end
-coroutine.wrap(QBYYF_fake_script)()
-local function TDBJ_fake_script() -- Fates.RGB 
+coroutine.wrap(XGEG_fake_script)()
+local function MEMWB_fake_script() -- Fates.RGB 
 	local script = Instance.new('Script', Fates)
 
 	local t = 5;
-
+	
 	while wait() do
 		local hue = tick()% t/t
 		local color = Color3.fromHSV(hue,1,1)
 		script.Parent.BorderColor3 = color
 	end
 end
-coroutine.wrap(TDBJ_fake_script)()
-local function VVJLRX_fake_script() -- cmdx.RGB 
+coroutine.wrap(MEMWB_fake_script)()
+local function LARWRGJ_fake_script() -- cmdx.RGB 
 	local script = Instance.new('Script', cmdx)
 
 	local t = 5;
-
+	
 	while wait() do
 		local hue = tick()% t/t
 		local color = Color3.fromHSV(hue,1,1)
 		script.Parent.BorderColor3 = color
 	end
 end
-coroutine.wrap(VVJLRX_fake_script)()
-local function BRDPRGT_fake_script() -- Frame_2.Drag 
+coroutine.wrap(LARWRGJ_fake_script)()
+local function KFUTQS_fake_script() -- Frame_2.Drag 
 	local script = Instance.new('Script', Frame_2)
 
 	local UIS = game:GetService('UserInputService')
@@ -624,14 +797,14 @@ local function BRDPRGT_fake_script() -- Frame_2.Drag
 	local dragSpeed = 0.25
 	local dragStart = nil
 	local startPos = nil
-
+	
 	local function updateInput(input)
 		local delta = input.Position - dragStart
 		local position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X,
 			startPos.Y.Scale, startPos.Y.Offset + delta.Y)
 		game:GetService('TweenService'):Create(frame, TweenInfo.new(dragSpeed), {Position = position}):Play()
 	end
-
+	
 	frame.InputBegan:Connect(function(input)
 		if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) then 
 			dragToggle = true
@@ -644,7 +817,7 @@ local function BRDPRGT_fake_script() -- Frame_2.Drag
 			end)
 		end
 	end)
-
+	
 	UIS.InputChanged:Connect(function(input)
 		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
 			if dragToggle then
@@ -653,8 +826,8 @@ local function BRDPRGT_fake_script() -- Frame_2.Drag
 		end
 	end)
 end
-coroutine.wrap(BRDPRGT_fake_script)()
-local function SBRF_fake_script() -- Frame.Drag 
+coroutine.wrap(KFUTQS_fake_script)()
+local function KTVUYPS_fake_script() -- Frame.Drag 
 	local script = Instance.new('Script', Frame)
 
 	local UIS = game:GetService('UserInputService')
@@ -663,14 +836,14 @@ local function SBRF_fake_script() -- Frame.Drag
 	local dragSpeed = 0.25
 	local dragStart = nil
 	local startPos = nil
-
+	
 	local function updateInput(input)
 		local delta = input.Position - dragStart
 		local position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X,
 			startPos.Y.Scale, startPos.Y.Offset + delta.Y)
 		game:GetService('TweenService'):Create(frame, TweenInfo.new(dragSpeed), {Position = position}):Play()
 	end
-
+	
 	frame.InputBegan:Connect(function(input)
 		if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) then 
 			dragToggle = true
@@ -683,7 +856,7 @@ local function SBRF_fake_script() -- Frame.Drag
 			end)
 		end
 	end)
-
+	
 	UIS.InputChanged:Connect(function(input)
 		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
 			if dragToggle then
@@ -692,29 +865,29 @@ local function SBRF_fake_script() -- Frame.Drag
 		end
 	end)
 end
-coroutine.wrap(SBRF_fake_script)()
-local function WIGTW_fake_script() -- Frame.Toggle 
+coroutine.wrap(KTVUYPS_fake_script)()
+local function AHZYWEA_fake_script() -- Frame.Toggle 
 	local script = Instance.new('Script', Frame)
 
 	local TweenService = game:GetService("TweenService")
 	local GUI = script.Parent
 	local Open = true
 	GUI.Position = UDim2.new(0.242, 0,0.257, 0)
-
+	
 	local function toggleGUI()
 		Open = not Open
 		local TweenInfo = TweenInfo.new(.5, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
 		local Tween = Open and TweenService:Create(GUI, TweenInfo, {Position = UDim2.new(0.242, 0,1, 0)}) or TweenService:Create(GUI, TweenInfo, {Position = UDim2.new(0.242, 0,0.257, 0)})
 		Tween:Play()
 	end
-
+	
 	local function onKeyPress(inputObject)
 		if inputObject.KeyCode == Enum.KeyCode.LeftAlt then
 			toggleGUI()
 		end
 	end
-
+	
 	game:GetService("UserInputService").InputBegan:Connect(onKeyPress)
-
+	
 end
-coroutine.wrap(WIGTW_fake_script)()
+coroutine.wrap(AHZYWEA_fake_script)()
