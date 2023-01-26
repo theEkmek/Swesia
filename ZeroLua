@@ -215,7 +215,7 @@ wind.Text = "Split"
 wind.TextColor3 = Color3.fromRGB(230, 230, 230)
 wind.TextSize = 17.000
 wind.MouseButton1Click:Connect(function()
-	game.Players.LocalPlayer.Character.Waist:remove()
+	game.Players.LocalPlayer.Character.UpperTorso.Waist:remove()
 end)
 
 ff.Name = "ff"
